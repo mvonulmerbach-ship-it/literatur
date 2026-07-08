@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Weltliteratur – Lernkarten</title>
+<meta name="theme-color" content="#7a3b2e">
+<style>
+:root{--bg:#f6f1e7;--card:#fffdf8;--ink:#2a2622;--soft:#6f675d;--line:#e5dccb;--brand:#7a3b2e;--brand2:#9c5a3c;--gold:#c08a2d;--good:#3f7d54;--bad:#b04b3c;--shadow:0 6px 20px rgba(60,40,20,.10)}
+html[data-theme=dark]{--bg:#1c1917;--card:#262220;--ink:#efe8dd;--soft:#a99f92;--line:#39332e;--brand:#c8785c;--brand2:#d99873;--shadow:0 6px 20px rgba(0,0,0,.4)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif}
+.serif{font-family:Georgia,"Times New Roman",serif}
+.wrap{max-width:600px;margin:0 auto;padding:0 16px calc(24px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:30;background:var(--bg);padding:calc(12px + env(safe-area-inset-top)) 0 10px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
+header .logo{width:38px;height:38px;border-radius:11px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:20px}
+header b{font-size:18px}
+header .sp{margin-left:auto}
+.iconbtn{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 11px;font-size:15px;color:var(--ink);cursor:pointer}
+.hidden{display:none!important}
+.banner{margin:16px 0 6px;border-radius:18px;padding:18px 18px;color:#fff;background:linear-gradient(135deg,var(--brand),#5c2a20);display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:var(--shadow)}
+.banner .em{font-size:30px}
+.banner b{font-size:18px;display:block}
+.banner small{opacity:.9;font-size:13px}
+.banner .go{margin-left:auto;font-size:26px;opacity:.8}
+.sectit{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);font-weight:800;margin:20px 4px 8px}
+.filters{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 4px}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
+.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.book{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 15px;margin:9px 0;box-shadow:var(--shadow);cursor:pointer;color:var(--ink)}
+.book .cov{flex:0 0 auto;width:44px;height:58px;border-radius:8px;background:linear-gradient(135deg,var(--brand2),var(--brand));color:#fff;display:grid;place-items:center;font-size:22px;box-shadow:0 3px 8px rgba(0,0,0,.2)}
+.book .tx{flex:1;min-width:0}
+.book .tt{font-weight:800;font-size:16px;line-height:1.2}
+.book .au{color:var(--soft);font-size:13px;margin-top:2px}
+.book .meta{color:var(--soft);font-size:12px;margin-top:3px}
+.book .cnt{flex:0 0 auto;font-size:12px;color:var(--soft);text-align:right}
+.pbar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;margin:14px 0 6px}
+.pbar>div{height:100%;background:var(--brand);width:0;transition:width .25s}
+.qcount{font-size:12px;color:var(--soft);text-align:center;margin-bottom:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px 18px;box-shadow:var(--shadow);margin-top:8px}
+.kick{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.k-Inhalt{background:#e7f0e9;color:#2f6b45}.k-Autor{background:#efe7f3;color:#6a4c93}.k-Interpretation{background:#f3e7dd;color:#9c5a3c}.k-Einfluss{background:#e6eef4;color:#2f5d8a}.k-Buch{background:var(--brand);color:#fff}
+html[data-theme=dark] .k-Inhalt,html[data-theme=dark] .k-Autor,html[data-theme=dark] .k-Interpretation,html[data-theme=dark] .k-Einfluss{background:#39332e;color:var(--ink)}
+.qtext{font-size:19px;line-height:1.4;font-weight:600}
+.ans{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px;font-size:16px;line-height:1.55;color:var(--ink)}
+.ans.show{animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.intrott{font-size:26px;font-weight:800;line-height:1.15;margin:2px 0 4px}
+.introau{font-size:16px;color:var(--soft);margin-bottom:10px}
+.introsum{font-size:16px;line-height:1.6}
+.intrometa{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 2px}
+.tag{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:12px;color:var(--soft);font-weight:700}
+.foot{position:sticky;bottom:0;background:linear-gradient(to top,var(--bg) 72%,transparent);padding:12px 0 calc(14px + env(safe-area-inset-bottom));display:flex;gap:10px}
+.btn{flex:1;padding:15px;border-radius:14px;font-size:16px;font-weight:800;border:none;cursor:pointer;background:var(--brand);color:#fff}
+.btn.ghost{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.btn.good{background:var(--good);color:#fff}
+.btn.bad{background:var(--card);color:var(--bad);border:1.5px solid var(--bad)}
+.result{text-align:center;padding:30px 10px}
+.ring{width:120px;height:120px;border-radius:50%;margin:10px auto;display:grid;place-items:center}
+.pill{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;margin:4px;font-size:13px;font-weight:700}
+a.src{color:var(--soft);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo serif">📚</div>
+    <b class="serif">Weltliteratur</b>
+    <span class="sp"></span>
+    <button class="iconbtn" id="themeBtn" title="Theme">🌗</button>
+  </header>
+
+  <!-- HOME -->
+  <div id="homeView">
+    <div id="bannerSlot"></div>
+    <div id="filterSlot"></div>
+    <div id="bookList"></div>
+    <div class="sectit">Quelle & Hinweis</div>
+    <p style="font-size:13px;color:var(--soft);line-height:1.5">Kanon-Auswahl u. a. nach dtv-Literaturkanon, „Die besten aller Zeiten\" und buchtipp.de (100 beste Bücher). Alle Inhalte, Zusammenfassungen und Deutungen sind eigenständig formuliert – keine Originalzitate.</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizView" class="hidden">
+    <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
+      <button class="iconbtn" id="backBtn">‹ Zurück</button>
+      <div style="flex:1"></div>
+      <div class="qcount" id="qcount" style="margin:0"></div>
+    </div>
+    <div class="pbar"><div id="pfill"></div></div>
+    <div id="cardSlot"></div>
+    <div class="foot" id="footSlot"></div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultView" class="hidden">
+    <div class="result">
+      <div class="ring" id="resRing"></div>
+      <h2 class="serif" id="resTitle" style="margin:6px 0"></h2>
+      <div id="resPills"></div>
+      <div style="margin-top:20px;display:flex;gap:10px">
+        <button class="btn ghost" id="resHome">Startseite</button>
+        <button class="btn" id="resAgain">Nochmal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="bookdata" type="application/json">[{"title":"Faust I","author":"Johann Wolfgang von Goethe","year":1808,"land":"Deutschland","epoch":"Weimarer Klassik","icon":"🔥","summary":"Der alternde Gelehrte Faust verzweifelt an den Grenzen des Wissens und schließt einen Pakt mit dem Teufel Mephisto. Er verführt das Bürgermädchen Gretchen und stürzt es ins Unglück. Das Werk gilt als das zentrale Drama der deutschen Literatur.","cards":[{"r":"Inhalt","q":"Worin besteht die Wette zwischen Faust und Mephisto?","a":"Mephisto dient Faust im Diesseits und zeigt ihm Genuss und Erkenntnis. Faust verliert seine Seele, sobald er einem Augenblick sagt: 'Verweile doch, du bist so schön' – also sobald er Genügen findet."},{"r":"Inhalt","q":"Wer ist Gretchen und was geschieht mit ihr?","a":"Margarete, ein junges, frommes Bürgermädchen. Faust verführt sie; sie wird schwanger, tötet in Verzweiflung ihr Kind, landet im Kerker und wird hingerichtet – am Ende aber als 'gerettet' bezeichnet."},{"r":"Inhalt","q":"Was geschieht in der 'Walpurgisnacht'?","a":"Mephisto führt Faust zum Hexensabbat auf dem Blocksberg, ein wüstes, sinnliches Treiben, das Faust von Gretchens drohendem Schicksal ablenken soll."},{"r":"Inhalt","q":"Womit rahmt Goethe die Handlung ein?","a":"Mit 'Zueignung', 'Vorspiel auf dem Theater' und dem 'Prolog im Himmel', in dem Gott und Mephisto um Fausts Seele wetten."},{"r":"Inhalt","q":"Wie kommt Gretchens Bruder Valentin zu Tode?","a":"Faust ersticht ihn mit Mephistos Hilfe im Duell; sterbend verflucht Valentin seine Schwester öffentlich."},{"r":"Autor","q":"Über welchen Zeitraum arbeitete Goethe am 'Faust'?","a":"Über rund 60 Jahre – vom 'Urfaust' der 1770er Jahre bis zur Vollendung des zweiten Teils kurz vor seinem Tod 1831/32."},{"r":"Autor","q":"Welchen literarischen Epochen ist Goethe zuzuordnen?","a":"Dem Sturm und Drang (jung) und vor allem der Weimarer Klassik."},{"r":"Autor","q":"Nenne ein weiteres Hauptwerk Goethes.","a":"Etwa 'Die Leiden des jungen Werther', 'Wilhelm Meisters Lehrjahre' oder 'Faust II'."},{"r":"Autor","q":"Mit welchem Dichter verband Goethe eine berühmte Freundschaft?","a":"Mit Friedrich Schiller – gemeinsam begründeten sie die Weimarer Klassik."},{"r":"Autor","q":"Welche Stellung hatte Goethe in Weimar?","a":"Er war nicht nur Dichter, sondern auch Minister und Berater am Hof des Herzogs von Sachsen-Weimar."},{"r":"Interpretation","q":"Wofür steht Fausts Klage von den 'zwei Seelen' in seiner Brust?","a":"Für den inneren Zwiespalt des Menschen zwischen sinnlicher Erdverhaftung und dem Streben nach geistiger Höhe."},{"r":"Interpretation","q":"Was meint das sprichwörtliche 'faustische' Streben?","a":"Ein rastloses, grenzenloses Streben nach Wissen und Erfahrung, das nie zur Ruhe kommt und sich mit nichts zufriedengibt."},{"r":"Interpretation","q":"Was ist neu am Pakt gegenüber der alten Teufelssage?","a":"Er ist als Wette gefasst: Faust wird nicht einfach verdammt; entscheidend ist, ob er je Stillstand und Genügen findet."},{"r":"Interpretation","q":"Was versteht man unter der 'Gretchenfrage'?","a":"Gretchens Frage 'Wie hast du's mit der Religion?' – sprichwörtlich für eine heikle, auf den Kern zielende Gewissensfrage."},{"r":"Interpretation","q":"Welche Gesellschaftskritik steckt in der Gretchentragödie?","a":"Kritik an Doppelmoral und der Ächtung der 'gefallenen' Frau: Gretchen trägt allein die Folgen, während Faust weiterzieht."},{"r":"Interpretation","q":"Wie ist Mephistos Selbstbeschreibung zu deuten?","a":"Er nennt sich 'ein Teil von jener Kraft, die stets das Böse will und stets das Gute schafft' – das Negative als paradox produktiver Antrieb."},{"r":"Interpretation","q":"Wie verhält sich im Drama Buchwissen zu gelebtem Leben?","a":"Faust wendet sich von der toten Gelehrsamkeit ab und sucht unmittelbares Erleben – eine Kritik an lebensfernem Rationalismus."},{"r":"Interpretation","q":"Wie ist der 'Prolog im Himmel' zu verstehen?","a":"In Anlehnung an das Buch Hiob: Der Mensch darf irren, solange er strebt; Gott vertraut darauf, dass Faust letztlich den rechten Weg findet."},{"r":"Interpretation","q":"Welche Bedeutung hat der Osterspaziergang?","a":"Motiv von Auferstehung und Erneuerung; im Kontrast zu Fausts innerer Enge – 'Hier bin ich Mensch, hier darf ich's sein'."},{"r":"Interpretation","q":"Warum gilt Faust zugleich als Held und als Schuldiger?","a":"Sein Streben ist bewundernswert, doch an Gretchen wird er moralisch schuldig – diese Ambivalenz ist der Kern der Tragödie."},{"r":"Interpretation","q":"Warum wird Faust oft 'deutsches Nationaldrama' genannt?","a":"Weil es zentrale Themen – Streben, Schuld, Erlösung – mit der Sprachkraft der Klassik verdichtet und tief im Bildungskanon verankert ist."},{"r":"Einfluss","q":"Welche späteren Werke greifen den Faust-Stoff auf?","a":"U.a. Thomas Manns 'Doktor Faustus', Bulgakows 'Meister und Margarita' sowie zahlreiche Opern (Gounod, Boito)."},{"r":"Einfluss","q":"Welche geflügelten Worte stammen aus dem Faust?","a":"'Gretchenfrage', 'des Pudels Kern', 'Grau ist alle Theorie' und 'Die Botschaft hör' ich wohl, allein mir fehlt der Glaube'."},{"r":"Einfluss","q":"Was bedeutet 'faustisch' als kulturkritischer Begriff?","a":"Oswald Spengler nutzte es für die rastlos strebende, grenzenlos expandierende 'abendländische' Kultur."},{"r":"Einfluss","q":"Wie prägte Faust die deutsche Bildungstradition?","a":"Als Pflichtlektüre und Theaterrepertoire wurde er zum Inbegriff des literarischen Kanons."}]},{"title":"Die Leiden des jungen Werther","author":"Johann Wolfgang von Goethe","year":1774,"land":"Deutschland","epoch":"Sturm und Drang","icon":"💌","summary":"Der junge Werther verliebt sich unglücklich in die bereits verlobte Lotte. In leidenschaftlichen Briefen schildert er seine wachsende Verzweiflung, bis er sich schließlich das Leben nimmt. Der Briefroman machte Goethe europaweit berühmt.","cards":[{"r":"Inhalt","q":"In welcher Form ist der Roman geschrieben?","a":"Als Briefroman – überwiegend aus Werthers Briefen an seinen Freund Wilhelm, ergänzt durch einen 'Herausgeber'-Bericht am Ende."},{"r":"Inhalt","q":"Warum ist Werthers Liebe zu Lotte aussichtslos?","a":"Lotte ist bereits mit dem soliden Albert verlobt bzw. verheiratet, den sie nicht verlassen will."},{"r":"Inhalt","q":"Wie endet der Roman?","a":"Werther erschießt sich mit Alberts geliehenen Pistolen; er stirbt qualvoll erst Stunden später."},{"r":"Inhalt","q":"Welche Rolle spielt Werthers Beruf?","a":"Eine gescheiterte Anstellung bei einer Gesandtschaft, wo ihn Standesdünkel demütigen, verstärkt seine Entfremdung von der Gesellschaft."},{"r":"Autor","q":"Wie alt war Goethe bei der Veröffentlichung?","a":"Erst 24 – der Roman von 1774 machte ihn schlagartig europaweit berühmt."},{"r":"Autor","q":"Welche persönlichen Erlebnisse flossen ein?","a":"Goethes Verliebtheit in die verlobte Charlotte Buff und der Suizid seines Bekannten Karl Wilhelm Jerusalem."},{"r":"Autor","q":"Welcher Epoche gehört der Werther an?","a":"Dem Sturm und Drang mit seiner Betonung von Gefühl, Natur und Individualität."},{"r":"Interpretation","q":"Was verkörpert Werther als Figur?","a":"Das empfindsame Sturm-und-Drang-Ich, das das Gefühl über Vernunft und gesellschaftliche Konvention stellt."},{"r":"Interpretation","q":"Was kritisiert der Roman an der Gesellschaft?","a":"Die starren Standesschranken und die Gefühlskälte einer rationalistischen, hierarchischen Ordnung."},{"r":"Interpretation","q":"Wofür steht die Natur im Werther?","a":"Sie spiegelt Werthers Seelenzustände – von frühlingshafter Harmonie bis zur bedrohlichen, stürmischen Auflösung."},{"r":"Interpretation","q":"Wie wird Werthers Suizid gedeutet?","a":"Ambivalent: als radikale Konsequenz absoluter Gefühlshingabe, aber auch als Scheitern an der Unfähigkeit zum Kompromiss."},{"r":"Interpretation","q":"Welche Rolle spielt Homer bzw. später Ossian?","a":"Der Wechsel von der heiteren Homer-Lektüre zum düsteren Ossian markiert Werthers Absturz in Schwermut."},{"r":"Interpretation","q":"Warum wirkte der Roman so stark auf die Zeitgenossen?","a":"Er traf das neue Lebensgefühl der Empfindsamkeit und gab dem individuellen Leiden erstmals radikalen Ausdruck."},{"r":"Einfluss","q":"Was war der 'Werther-Effekt'?","a":"Eine Welle von Nachahmungssuiziden; der Begriff bezeichnet bis heute mediale Nachahmungseffekte bei Suiziden."},{"r":"Einfluss","q":"Welche Modeerscheinung löste der Roman aus?","a":"Das 'Werther-Kostüm' (blauer Frack, gelbe Weste) und ein regelrechtes 'Werther-Fieber' in ganz Europa."},{"r":"Einfluss","q":"Welche Bedeutung hat der Roman literaturgeschichtlich?","a":"Er begründete den Ruhm des modernen Briefromans und machte das empfindsame Individuum zum literarischen Zentrum."}]},{"title":"Die Verwandlung","author":"Franz Kafka","year":1915,"land":"Österreich-Ungarn (Prag)","epoch":"Moderne / Expressionismus","icon":"🪲","summary":"Der Handlungsreisende Gregor Samsa erwacht eines Morgens als riesiges Ungeziefer verwandelt. Von seiner Familie zunehmend verstoßen, verkümmert und stirbt er. Die Erzählung gilt als Schlüsselwerk der literarischen Moderne.","cards":[{"r":"Inhalt","q":"Wie beginnt die Erzählung?","a":"Gregor Samsa erwacht 'aus unruhigen Träumen' und findet sich in ein 'ungeheures Ungeziefer' verwandelt – ohne dass je eine Ursache genannt wird."},{"r":"Inhalt","q":"Wovon lebte die Familie vor der Verwandlung?","a":"Allein von Gregors Arbeit als Handlungsreisender, mit der er auch die Schulden der Eltern abtrug."},{"r":"Inhalt","q":"Wie reagiert die Familie im Verlauf?","a":"Zuerst mit Schock und Fürsorge (v.a. die Schwester Grete), dann mit wachsendem Ekel, Vernachlässigung und schließlich dem Wunsch, ihn loszuwerden."},{"r":"Inhalt","q":"Wie stirbt Gregor?","a":"Verletzt (ein vom Vater geworfener Apfel bleibt in seinem Rücken stecken), vereinsamt und ausgehungert stirbt er; die Familie empfindet Erleichterung."},{"r":"Inhalt","q":"Wie endet die Erzählung?","a":"Die Familie macht einen Ausflug ins Grüne und blickt hoffnungsvoll auf die aufblühende Tochter Grete – als sei eine Last abgefallen."},{"r":"Autor","q":"Woher stammte Kafka und in welcher Sprache schrieb er?","a":"Aus Prag, aus einer deutschsprachigen jüdischen Familie; er schrieb auf Deutsch."},{"r":"Autor","q":"Welchen Brotberuf übte Kafka aus?","a":"Er war Jurist bei einer Arbeiter-Unfallversicherung; das Schreiben betrieb er 'nebenbei', oft nachts."},{"r":"Autor","q":"Was verfügte Kafka über seinen Nachlass?","a":"Er bat seinen Freund Max Brod, seine Manuskripte zu verbrennen – Brod veröffentlichte sie stattdessen."},{"r":"Autor","q":"Nenne weitere Hauptwerke Kafkas.","a":"Die Romane 'Der Prozess', 'Das Schloss' und 'Der Verschollene' (Amerika)."},{"r":"Interpretation","q":"Was bedeutet das Adjektiv 'kafkaesk'?","a":"Eine bedrohlich-absurde, undurchschaubare Situation, in der der Einzelne einer unerklärlichen, übermächtigen Ordnung ausgeliefert ist."},{"r":"Interpretation","q":"Wie lässt sich die Verwandlung als Entfremdungsparabel lesen?","a":"Gregor wird auf seine Nützlichkeit als Ernährer reduziert; verliert er die Arbeitskraft, verliert er seinen Wert und seine Menschlichkeit."},{"r":"Interpretation","q":"Welche Deutung bietet die Vater-Sohn-Beziehung?","a":"Ein autobiografisch grundierter Konflikt mit der übermächtigen Vaterfigur (vgl. Kafkas 'Brief an den Vater')."},{"r":"Interpretation","q":"Warum wird die Ursache der Verwandlung nie erklärt?","a":"Das Unerklärliche wird als selbstverständlich hingenommen – gerade das erzeugt das Absurde und verhindert eine tröstliche Deutung."},{"r":"Interpretation","q":"Welche Rolle spielt Gregors Schwester Grete?","a":"Sie ist zunächst seine einzige Fürsprecherin, wird aber am Ende diejenige, die seine Beseitigung fordert – der Kipppunkt der Familie."},{"r":"Interpretation","q":"Wofür kann das 'Ungeziefer' symbolisch stehen?","a":"Für gesellschaftliche Ausgrenzung, Krankheit, das Fremde/Andere oder das verdrängte, 'ekelhafte' Selbst."},{"r":"Interpretation","q":"Wie ist der hoffnungsvolle Schluss zu deuten?","a":"Zynisch bis verstörend: Das Aufblühen der Familie beruht auf der Beseitigung Gregors – Solidarität endet an der Nützlichkeit."},{"r":"Interpretation","q":"Welche Erzählperspektive herrscht vor?","a":"Eine an Gregor gebundene personale Perspektive, die seine nüchterne Selbstwahrnehmung mit der Ungeheuerlichkeit kontrastiert."},{"r":"Einfluss","q":"Wie prägte Kafka die moderne Literatur?","a":"Er wurde zum Inbegriff der literarischen Moderne; 'kafkaesk' ging als Begriff in viele Sprachen ein."},{"r":"Einfluss","q":"Auf welche Strömungen und Autoren wirkte Kafka?","a":"Auf Existenzialismus und absurdes Theater (Camus, Sartre, Beckett) sowie auf zahllose Autoren des 20. Jahrhunderts."},{"r":"Einfluss","q":"Warum ist 'Die Verwandlung' Schullektüre-Klassiker?","a":"Als kompakte, vieldeutige Parabel eignet sie sich ideal für Interpretation und ist weltweit kanonisiert."}]},{"title":"Der Prozess","author":"Franz Kafka","year":1925,"land":"Österreich-Ungarn (Prag)","epoch":"Moderne","icon":"⚖️","summary":"Josef K. wird eines Morgens ohne Angabe eines Vergehens verhaftet und in einen undurchschaubaren Gerichtsprozess verstrickt. Er kämpft vergeblich gegen eine anonyme Bürokratie und wird am Ende hingerichtet. Der Roman erschien postum.","cards":[{"r":"Inhalt","q":"Wie beginnt der Roman?","a":"Josef K. wird an seinem 30. Geburtstag verhaftet, ohne dass ihm ein Vergehen genannt wird – er bleibt aber zunächst 'frei'."},{"r":"Inhalt","q":"Was erfährt K. über seine Schuld?","a":"Nichts Konkretes: Das Gericht bleibt unsichtbar, die Anklage ungenannt, der Prozess undurchschaubar."},{"r":"Inhalt","q":"Was besagt die 'Türhüterlegende'?","a":"Ein Mann wartet sein Leben lang vor einem Tor zum 'Gesetz', das nur für ihn bestimmt war und das der Türhüter am Ende schließt."},{"r":"Inhalt","q":"Wie endet der Roman?","a":"Zwei Männer führen K. ab und töten ihn mit einem Messer – 'wie ein Hund', empfindet er sterbend."},{"r":"Autor","q":"Wurde der Roman zu Kafkas Lebzeiten veröffentlicht?","a":"Nein, er blieb Fragment; Max Brod ordnete und veröffentlichte ihn 1925 nach Kafkas Tod."},{"r":"Autor","q":"Welchen Beruf hatte Kafka, der den Roman beeinflusste?","a":"Als Versicherungsjurist kannte er Bürokratie und Aktenwesen aus eigener Erfahrung."},{"r":"Autor","q":"In welcher Stadt spielt Kafkas Werk atmosphärisch?","a":"Im labyrinthischen, deutsch-jüdisch-tschechischen Prag seiner Zeit."},{"r":"Interpretation","q":"Wofür steht der undurchschaubare Prozess?","a":"Für die Ohnmacht des Einzelnen gegenüber einer anonymen, sinnentleerten Macht und Bürokratie."},{"r":"Interpretation","q":"Wie deutet man K.s 'Schuld'?","a":"Vieldeutig: als existenzielle Grundschuld, als diffuses Schuldgefühl der Moderne oder als gar nicht objektiv fassbar."},{"r":"Interpretation","q":"Was besagt die Türhüterlegende über 'das Gesetz'?","a":"Der Zugang zum Gesetz/Sinn bleibt versperrt, obwohl er individuell bestimmt war – eine Parabel auf unerreichbare letzte Wahrheit."},{"r":"Interpretation","q":"Welche Rolle spielt die Bürokratie?","a":"Sie erscheint als undurchdringliches, korruptes, allgegenwärtiges System ohne fassbares Zentrum."},{"r":"Interpretation","q":"Wie lässt sich der Roman existenzialistisch lesen?","a":"Als Bild einer sinnlosen Welt, in der der Mensch schuldig-verurteilt ist, ohne den Grund je zu erfahren."},{"r":"Interpretation","q":"Welche religiöse Deutung ist möglich?","a":"Als Suche nach Gnade/Gericht in einer Welt, in der Gott bzw. der Sinn abwesend oder unerreichbar geworden ist."},{"r":"Interpretation","q":"Warum verstärkt die Fragmentform die Wirkung?","a":"Die offene, unabgeschlossene Struktur spiegelt die Ausweglosigkeit und Undurchschaubarkeit des Prozesses selbst."},{"r":"Einfluss","q":"Warum ist 'Der Prozess' politisch oft zitiert worden?","a":"Als hellsichtige Vorwegnahme totalitärer Willkür und rechtsstaatlicher Aushöhlung im 20. Jahrhundert."},{"r":"Einfluss","q":"Welche Verfilmung ist berühmt?","a":"Orson Welles verfilmte 'Der Prozess' 1962."},{"r":"Einfluss","q":"Wie wirkt der Roman bis heute nach?","a":"Er prägte das Bild vom 'kafkaesken' Ausgeliefertsein an Institutionen – ein fester Bezugspunkt der Moderne."}]},{"title":"Schuld und Sühne","author":"Fjodor M. Dostojewski","year":1866,"land":"Russland","epoch":"Realismus","icon":"🪓","summary":"Der verarmte Student Raskolnikow ermordet eine Pfandleiherin, um seine Theorie vom 'außergewöhnlichen Menschen' zu beweisen. Von Schuld zerfressen, findet er erst durch Geständnis und die Liebe Sonjas einen Weg zur inneren Erlösung.","cards":[{"r":"Inhalt","q":"Welches Verbrechen begeht Raskolnikow?","a":"Er erschlägt die alte Pfandleiherin Aljona mit einem Beil und tötet zusätzlich ihre unschuldig hinzukommende Schwester Lisaweta."},{"r":"Inhalt","q":"Mit welcher Theorie rechtfertigt er die Tat?","a":"Mit der Idee, 'außergewöhnliche' Menschen dürften zum höheren Zweck moralische Grenzen und sogar das Tötungsverbot überschreiten."},{"r":"Inhalt","q":"Wer ist Sonja Marmeladowa?","a":"Ein aus Not zur Prostitution gezwungenes, tief gläubiges Mädchen, das Raskolnikow zur Umkehr und zum Geständnis bewegt."},{"r":"Inhalt","q":"Wie endet der Roman?","a":"Raskolnikow gesteht, wird nach Sibirien verbannt; im Epilog deutet sich durch Sonjas Liebe seine seelische Wiedergeburt an."},{"r":"Inhalt","q":"Welche Rolle spielt Ermittler Porfirij?","a":"Er durchschaut Raskolnikow psychologisch und treibt ihn durch subtile Gespräche zum Geständnis, ohne handfeste Beweise."},{"r":"Autor","q":"Welches biografische Erlebnis prägte Dostojewski?","a":"Eine Scheinhinrichtung und die anschließende Verbannung nach Sibirien wegen seiner Zugehörigkeit zu einem oppositionellen Zirkel."},{"r":"Autor","q":"Welche Themen kennzeichnen Dostojewskis Werk?","a":"Schuld, Glaube, Leiden, Freiheit und die Abgründe der menschlichen Psyche."},{"r":"Autor","q":"Nenne weitere Hauptwerke Dostojewskis.","a":"'Die Brüder Karamasow', 'Der Idiot' und 'Die Dämonen'."},{"r":"Autor","q":"Welche Rolle spielt der christliche Glaube bei ihm?","a":"Eine zentrale: Erlösung durch Leiden, Demut und Nächstenliebe ist ein Grundmotiv seines Denkens."},{"r":"Interpretation","q":"Was kritisiert der Roman an Raskolnikows Theorie?","a":"Den rationalistisch-nihilistischen Größenwahn: Der Versuch, sich über die Moral zu stellen, zerstört ihn seelisch."},{"r":"Interpretation","q":"Wie zeigt sich die 'Sühne' im Roman?","a":"Weniger als juristische Strafe denn als innerer Prozess von Schuldbewusstsein, Reue und schließlich Wiedergeburt."},{"r":"Interpretation","q":"Welche Bedeutung hat die Figur Sonja?","a":"Sie verkörpert christliche Demut und Liebe; ihr Leiden und Glaube weisen Raskolnikow den Weg zur Erlösung."},{"r":"Interpretation","q":"Wie deutet man Raskolnikows 'Übermenschen'-Idee im Vergleich zu Nietzsche?","a":"Sie nimmt Motive vorweg, die später mit Nietzsche verknüpft wurden – Dostojewski führt sie jedoch zur Widerlegung, als selbstzerstörerischen Irrweg."},{"r":"Interpretation","q":"Welche Rolle spielt die Großstadt Petersburg?","a":"Die stickige, elende Stadt spiegelt Raskolnikows Fieber und moralische Verengung; sie ist fast eine eigene Figur."},{"r":"Interpretation","q":"Warum gilt der Roman als psychologischer Kriminalroman?","a":"Nicht das Wer, sondern das Warum und das seelische Nachbeben der Tat stehen im Zentrum – Innensicht statt Ermittlungsplot."},{"r":"Interpretation","q":"Welche gesellschaftskritische Dimension hat der Roman?","a":"Er zeigt Armut, soziale Verzweiflung und die Verlockung radikaler Ideen im Russland des 19. Jahrhunderts."},{"r":"Einfluss","q":"Wie beeinflusste Dostojewski die moderne Literatur und Philosophie?","a":"Er gilt als Wegbereiter des Existenzialismus und der Psychologie der Tiefe; Nietzsche, Freud und Camus schätzten ihn."},{"r":"Einfluss","q":"Warum ist der Roman ein Meilenstein des psychologischen Erzählens?","a":"Er erschließt literarisch das Unbewusste, Schuldgefühl und innere Zerrissenheit – Vorbild für den modernen Roman."},{"r":"Einfluss","q":"Welche Bedeutung hat das Werk für die Debatte um Zweck und Mittel?","a":"Es ist ein klassisches Argument gegen die These, ein höherer Zweck rechtfertige jedes Mittel."}]},{"title":"Stolz und Vorurteil","author":"Jane Austen","year":1813,"land":"England","epoch":"Klassik / Regency","icon":"💍","summary":"Die kluge Elizabeth Bennet und der stolze, reiche Mr. Darcy überwinden gegenseitige Vorurteile und Standesschranken, bis sie zueinanderfinden. Austens Gesellschaftsroman verbindet feine Ironie mit scharfer Beobachtung.","cards":[{"r":"Inhalt","q":"Wer sind die zentralen Figuren?","a":"Elizabeth Bennet, zweitälteste von fünf Schwestern, und der vornehme, wohlhabende Fitzwilliam Darcy."},{"r":"Inhalt","q":"Warum steht die Ehe für die Bennets unter Druck?","a":"Das Anwesen ist an einen männlichen Erben gebunden; die fünf Töchter müssen gut heiraten, um versorgt zu sein."},{"r":"Inhalt","q":"Wie wandelt sich Elizabeths Urteil über Darcy?","a":"Vom Vorurteil (er sei hochmütig) zur Einsicht in seinen Charakter, nachdem sich Verleumdungen (durch Wickham) als falsch erweisen."},{"r":"Inhalt","q":"Welche Nebenhandlung sorgt für einen Skandal?","a":"Die jüngste Schwester Lydia brennt mit dem unehrenhaften Wickham durch; Darcy rettet heimlich die Familienehre."},{"r":"Autor","q":"In welcher Zeit lebte und schrieb Jane Austen?","a":"Im England um 1800 (Regency-Zeit); sie veröffentlichte ihre Romane zunächst anonym ('by a Lady')."},{"r":"Autor","q":"Was kennzeichnet Austens Stil?","a":"Feine Ironie, präzise Dialoge und scharfe, oft komische Beobachtung der Gesellschaft."},{"r":"Autor","q":"Nenne weitere Romane Austens.","a":"'Emma', 'Verstand und Gefühl' (Sense and Sensibility) und 'Überredung' (Persuasion)."},{"r":"Interpretation","q":"Worauf spielt der Titel 'Stolz und Vorurteil' an?","a":"Auf Darcys Stolz und Elizabeths Vorurteil – beide müssen ihre Fehlhaltungen erkennen und überwinden."},{"r":"Interpretation","q":"Welche Gesellschaftskritik übt der Roman?","a":"Er kritisiert die ökonomische Zwangslage der Frauen und die Verengung der Ehe auf Standes- und Geldfragen."},{"r":"Interpretation","q":"Wie modern ist Elizabeth als Figur?","a":"Sehr: Sie beansprucht Urteilskraft, Selbstachtung und die Wahl aus Liebe statt bloßer Versorgung."},{"r":"Interpretation","q":"Welche Funktion hat Austens Ironie?","a":"Sie entlarvt Eitelkeit, Standesdünkel und Heuchelei, ohne moralisch zu predigen."},{"r":"Interpretation","q":"Wie kontrastiert der Roman verschiedene Ehe-Modelle?","a":"Liebesehe (Elizabeth/Darcy) gegen Vernunft-/Versorgungsehe (Charlotte/Collins) und leidenschaftlichen Leichtsinn (Lydia/Wickham)."},{"r":"Interpretation","q":"Warum gilt der Roman trotz Happy End als scharfsichtig?","a":"Weil er die materiellen Zwänge hinter der romantischen Fassade nüchtern offenlegt."},{"r":"Einfluss","q":"Welchen Status hat der Roman heute?","a":"Er ist einer der meistgelesenen englischen Romane und ein Klassiker der Weltliteratur."},{"r":"Einfluss","q":"Wie wirkt Austen auf Populärkultur und Genre?","a":"Sie prägte den modernen Liebes- und Gesellschaftsroman; unzählige Verfilmungen und Adaptionen (z.B. 'Bridget Jones') berufen sich auf sie."},{"r":"Einfluss","q":"Warum gilt Austen als frühe Vorläuferin feministischer Perspektiven?","a":"Weil sie die begrenzten Handlungsspielräume von Frauen kritisch und ironisch sichtbar macht."}]},{"title":"1984","author":"George Orwell","year":1949,"land":"England","epoch":"Moderne / Dystopie","icon":"👁️","summary":"In einem totalitären Überwachungsstaat versucht Winston Smith, sich innerlich gegen die Partei und den allgegenwärtigen 'Großen Bruder' aufzulehnen. Sein Aufbegehren wird gebrochen. Der Roman prägte das Bild moderner Überwachung.","cards":[{"r":"Inhalt","q":"In welcher Welt spielt der Roman?","a":"In Ozeanien, einem totalitären Einparteienstaat unter der Führung des allgegenwärtigen 'Großen Bruders'."},{"r":"Inhalt","q":"Was ist Winstons Beruf?","a":"Er arbeitet im 'Wahrheitsministerium' und fälscht Vergangenheit – er passt alte Dokumente an die jeweils aktuelle Parteilinie an."},{"r":"Inhalt","q":"Wie äußert sich Winstons Auflehnung?","a":"Durch ein heimliches Tagebuch, die verbotene Liebe zu Julia und den Versuch, sich einem Widerstand ('Bruderschaft') anzuschließen."},{"r":"Inhalt","q":"Wie endet der Roman?","a":"Nach Folter im 'Zimmer 101' wird Winston gebrochen; er verrät Julia und 'liebt' am Ende den Großen Bruder."},{"r":"Autor","q":"Wer war George Orwell?","a":"Pseudonym von Eric Arthur Blair, britischer Autor und Journalist mit demokratisch-sozialistischer, antitotalitärer Haltung."},{"r":"Autor","q":"Welche Erfahrungen prägten Orwells Politik?","a":"U.a. der Spanische Bürgerkrieg und seine Ablehnung sowohl des Faschismus als auch des Stalinismus."},{"r":"Autor","q":"Welches weitere berühmte Werk schrieb Orwell?","a":"Die Fabel 'Farm der Tiere' (Animal Farm), eine Satire auf die Stalinsche Diktatur."},{"r":"Interpretation","q":"Was bedeutet 'Big Brother is watching you'?","a":"Das Sinnbild lückenloser Überwachung; der Staat kontrolliert Handeln und Denken bis ins Private."},{"r":"Interpretation","q":"Was ist 'Neusprech' (Newspeak)?","a":"Eine reduzierte Sprache, die abweichendes Denken unmöglich machen soll – Sprachkontrolle als Gedankenkontrolle."},{"r":"Interpretation","q":"Was meint 'Doppeldenk' (Doublethink)?","a":"Die Fähigkeit, zwei widersprüchliche Überzeugungen zugleich für wahr zu halten – etwa 'Krieg ist Frieden'."},{"r":"Interpretation","q":"Wie funktioniert die Manipulation der Vergangenheit?","a":"'Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft': Geschichte wird ständig umgeschrieben, um die Partei unfehlbar erscheinen zu lassen."},{"r":"Interpretation","q":"Welche Rolle spielt die Liebe zu Julia?","a":"Sie ist ein privater Akt der Rebellion; ihre Zerstörung zeigt, dass der Staat noch die intimsten Bindungen unterwirft."},{"r":"Interpretation","q":"Wofür steht 'Zimmer 101'?","a":"Für die totale Unterwerfung: den Ort, an dem die individuelle 'schlimmste Angst' gebrochen wird."},{"r":"Interpretation","q":"Warum ist der Schluss so verstörend?","a":"Es gibt keine Rettung und keine Hoffnung: Der Widerstand wird nicht nur besiegt, sondern innerlich ausgelöscht."},{"r":"Interpretation","q":"Ist der Roman eine Kritik nur am Kommunismus?","a":"Nein: Er richtet sich gegen jede Form totalitärer Herrschaft und Massenmanipulation, links wie rechts."},{"r":"Einfluss","q":"Welche Begriffe aus '1984' sind Alltagssprache geworden?","a":"'Großer Bruder', 'Orwell'sch', 'Neusprech', 'Gedankenpolizei' und 'Doppeldenk'."},{"r":"Einfluss","q":"Warum wird '1984' in Überwachungsdebatten zitiert?","a":"Als Warnbild für staatliche und digitale Massenüberwachung und Manipulation der Wahrheit."},{"r":"Einfluss","q":"Welchen Rang hat der Roman in der Dystopie-Tradition?","a":"Er ist – neben Huxleys 'Schöne neue Welt' – der einflussreichste dystopische Roman des 20. Jahrhunderts."}]},{"title":"Der Fremde","author":"Albert Camus","year":1942,"land":"Frankreich / Algerien","epoch":"Moderne / Existenzialismus","icon":"☀️","summary":"Der teilnahmslose Meursault erschießt am sonnenüberfluteten Strand von Algier einen Mann, fast ohne Motiv. Im Prozess wird ihm vor allem seine Gefühlskälte zum Verhängnis. Der Roman ist ein Schlüsseltext der Philosophie des Absurden.","cards":[{"r":"Inhalt","q":"Womit beginnt der Roman?","a":"Mit Meursaults nüchterner Feststellung, dass seine Mutter gestorben ist – ohne erkennbare Trauer."},{"r":"Inhalt","q":"Welche Tat begeht Meursault?","a":"Am Strand erschießt er, geblendet von der Sonne und ohne klares Motiv, einen 'Araber'."},{"r":"Inhalt","q":"Was wird ihm im Prozess eigentlich vorgeworfen?","a":"Weniger der Mord selbst als seine Gefühllosigkeit – etwa dass er am Grab der Mutter nicht weinte."},{"r":"Inhalt","q":"Wie endet der Roman?","a":"Zum Tode verurteilt, weist Meursault den Priester ab und findet Frieden in der Annahme der gleichgültigen Welt."},{"r":"Autor","q":"Wer war Albert Camus?","a":"Ein französischer, in Algerien aufgewachsener Schriftsteller und Denker, Literaturnobelpreisträger 1957."},{"r":"Autor","q":"In welchem Verhältnis stand Camus zum Existenzialismus?","a":"Er wird ihm zugerechnet, distanzierte sich aber; sein eigenes Denken kreist um das 'Absurde' und die Revolte."},{"r":"Autor","q":"Welcher Essay Camus' erklärt das Konzept des Absurden?","a":"'Der Mythos des Sisyphos', in dem er den Menschen mit dem ewig Steine wälzenden Sisyphos vergleicht."},{"r":"Interpretation","q":"Was verkörpert Meursault?","a":"Den 'absurden Menschen', der der sinnleeren Welt keine falschen Bedeutungen aufzwingt und ehrlich gleichgültig bleibt."},{"r":"Interpretation","q":"Was meint Camus mit dem 'Absurden'?","a":"Den Widerspruch zwischen dem menschlichen Sinnverlangen und der stummen, gleichgültigen Welt."},{"r":"Interpretation","q":"Warum wird Meursault eigentlich verurteilt?","a":"Weil er die gesellschaftlichen Gefühls- und Trauerkonventionen verweigert – die Gesellschaft bestraft seine Ehrlichkeit/Andersartigkeit."},{"r":"Interpretation","q":"Welche Rolle spielt die Sonne bei der Tat?","a":"Die überwältigende Hitze und das grelle Licht rücken die Tat ins Sinnlich-Absurde und entziehen ihr ein klares Motiv."},{"r":"Interpretation","q":"Wie ist Meursaults Schluss-Haltung zu deuten?","a":"Als Aufbegehren durch Annahme: Er umarmt die 'zärtliche Gleichgültigkeit der Welt' und findet darin Freiheit."},{"r":"Interpretation","q":"Warum lehnt Meursault den Priester ab?","a":"Weil er keine jenseitige Vertröstung annimmt; er besteht auf der Wahrheit des diesseitigen, sinnlosen Lebens."},{"r":"Interpretation","q":"Welche postkoloniale Kritik trifft den Roman?","a":"Dass das Opfer, der 'Araber', namenlos und stumm bleibt – ein blinder Fleck der kolonialen Perspektive (später von Daoud aufgegriffen)."},{"r":"Einfluss","q":"Welchen Rang hat 'Der Fremde' in der Literatur des 20. Jh.?","a":"Er gilt als einer der einflussreichsten und meistgelesenen französischen Romane der Moderne."},{"r":"Einfluss","q":"Wie wirkte Camus' Denken des Absurden nach?","a":"Es prägte Existenzialismus, absurdes Theater und die Nachkriegsphilosophie; 'Der Mythos des Sisyphos' wurde zum Schlüsseltext."},{"r":"Einfluss","q":"Welcher Roman antwortet aus arabischer Perspektive auf 'Der Fremde'?","a":"Kamel Daouds 'Der Fall Meursault', der dem getöteten 'Araber' einen Namen und eine Stimme gibt."}]}]</script>
+<script>
+const BOOKS = JSON.parse(document.getElementById('bookdata').textContent);
+BOOKS.forEach((b,i)=>b._i=i);
+const $=id=>document.getElementById(id);
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* theme */
+var theme=localStorage.getItem('lit_theme')||'light';
+document.documentElement.setAttribute('data-theme',theme);
+$('themeBtn').onclick=function(){theme=theme==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',theme);localStorage.setItem('lit_theme',theme);};
+
+/* ---------- HOME ---------- */
+var curFilter='Alle';
+function epochs(){var s=['Alle'];BOOKS.forEach(b=>{if(s.indexOf(b.epoch)<0)s.push(b.epoch);});return s;}
+function renderHome(){
+  $('homeView').classList.remove('hidden');$('quizView').classList.add('hidden');$('resultView').classList.add('hidden');
+  var total=BOOKS.reduce((s,b)=>s+b.cards.length,0);
+  var bs=$('bannerSlot');bs.innerHTML='';
+  var ban=el('div','banner','<span class="em">🎲</span><div><b>Alles gemischt</b><small>'+BOOKS.length+' Werke · '+total+' Karten · Pakete bleiben zusammen</small></div><span class="go">›</span>');
+  ban.onclick=function(){startSession(BOOKS.map(b=>b._i),'🎲 Alle Werke');};
+  bs.appendChild(ban);
+  // filters
+  var fs=$('filterSlot');fs.innerHTML='';
+  var row=el('div','filters');
+  epochs().forEach(function(ep){
+    var c=el('button','chip'+(ep===curFilter?' on':''),ep);
+    c.onclick=function(){curFilter=ep;renderHome();};
+    row.appendChild(c);
+  });
+  fs.appendChild(el('div','sectit','Nach Epoche filtern'));
+  fs.appendChild(row);
+  // list
+  var list=$('bookList');list.innerHTML='';
+  list.appendChild(el('div','sectit','Werke'+(curFilter!=='Alle'?' · '+curFilter:'')));
+  BOOKS.filter(b=>curFilter==='Alle'||b.epoch===curFilter).forEach(function(b){
+    var card=el('button','book');
+    card.innerHTML='<span class="cov serif">'+(b.icon||'📖')+'</span>'+
+      '<span class="tx"><span class="tt serif">'+b.title+'</span><span class="au">'+b.author+'</span>'+
+      '<span class="meta">'+b.year+' · '+b.land+' · '+b.epoch+'</span></span>'+
+      '<span class="cnt">'+b.cards.length+'<br>Karten</span>';
+    card.onclick=function(){startSession([b._i], b.title);};
+    list.appendChild(card);
+  });
+}
+
+/* ---------- SESSION with PACKETS ---------- */
+var S=null;
+function startSession(bookIdxs,label){
+  // build packets: each book's cards shuffled, but kept together; packet ORDER shuffled
+  var packets=shuffle(bookIdxs.slice()).map(function(bi){
+    return {bi:bi, cards:shuffle(BOOKS[bi].cards.slice())};
+  });
+  var queue=[];
+  packets.forEach(function(p){
+    queue.push({kind:'intro',bi:p.bi});
+    p.cards.forEach(function(c){queue.push({kind:'card',bi:p.bi,card:c});});
+  });
+  S={queue:queue,pos:0,known:0,seen:0,label:label};
+  $('homeView').classList.add('hidden');$('resultView').classList.add('hidden');$('quizView').classList.remove('hidden');
+  render();
+}
+$('backBtn').onclick=function(){ if(confirm('Lernrunde beenden?')) renderHome(); };
+function setFoot(btns){var f=$('footSlot');f.innerHTML='';btns.forEach(function(b){var x=el('button','btn'+(b.cls?' '+b.cls:''),b.label);x.onclick=b.fn;f.appendChild(x);});}
+function progress(){$('pfill').style.width=(S.pos/S.queue.length*100)+'%';var it=S.queue[S.pos];$('qcount').textContent=(S.pos+1)+' / '+S.queue.length;}
+function next(){S.pos++;if(S.pos>=S.queue.length)finish();else render();}
+function render(){
+  progress();
+  var it=S.queue[S.pos];var b=BOOKS[it.bi];
+  var slot=$('cardSlot');slot.innerHTML='';
+  var card=el('div','card');
+  if(it.kind==='intro'){
+    card.innerHTML='<span class="kick k-Buch">Neues Paket</span>'+
+      '<div class="intrott serif">'+b.title+'</div>'+
+      '<div class="introau">'+b.author+' · '+b.year+'</div>'+
+      '<div class="introsum">'+b.summary+'</div>'+
+      '<div class="intrometa"><span class="tag">'+b.land+'</span><span class="tag">'+b.epoch+'</span><span class="tag">'+b.cards.length+' Karten</span></div>';
+    slot.appendChild(card);
+    setFoot([{label:'Los geht’s →',fn:next}]);
+    window.scrollTo(0,0);return;
+  }
+  var c=it.card;
+  card.innerHTML='<span class="kick k-'+c.r+'">'+c.r+' · '+b.title+'</span><div class="qtext serif">'+c.q+'</div>';
+  var ans=el('div','ans');ans.id='ansBox';
+  slot.appendChild(card);card.appendChild(ans);
+  setFoot([{label:'Antwort zeigen',fn:reveal}]);
+  window.scrollTo(0,0);
+}
+function reveal(){
+  var it=S.queue[S.pos];var c=it.card;
+  var ans=$('ansBox');ans.innerHTML=c.a;ans.classList.add('show');
+  S.seen++;
+  var last=(S.pos+1>=S.queue.length);
+  setFoot([
+    {label:'✗ Nochmal',cls:'bad',fn:function(){next();}},
+    {label:'✓ Gewusst',cls:'good',fn:function(){S.known++;next();}}
+  ]);
+  try{ans.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}
+}
+function finish(){
+  $('pfill').style.width='100%';
+  $('quizView').classList.add('hidden');$('resultView').classList.remove('hidden');
+  var pct=S.seen?Math.round(S.known/S.seen*100):0;
+  var col=pct>=80?'var(--good)':(pct>=50?'var(--gold)':'var(--bad)');
+  $('resRing').style.background='conic-gradient('+col+' '+pct+'%, var(--line) 0)';
+  $('resRing').innerHTML='<div style="width:100px;height:100px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:26px;font-weight:800">'+pct+'%</div>';
+  $('resTitle').textContent=(pct>=80?'🏆 ':(pct>=50?'👍 ':'📚 '))+S.known+' von '+S.seen+' gewusst';
+  $('resPills').innerHTML='<span class="pill">'+S.label+'</span><span class="pill">'+S.queue.length+' Karten</span>';
+}
+$('resHome').onclick=renderHome;
+$('resAgain').onclick=function(){ if(S){ var ids=[];S.queue.forEach(function(it){if(ids.indexOf(it.bi)<0)ids.push(it.bi);}); startSession(ids,S.label);} };
+
+renderHome();
+</script>
+</body>
+</html>
