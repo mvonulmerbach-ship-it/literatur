@@ -62,6 +62,13 @@ html[data-theme=dark] .k-Inhalt,html[data-theme=dark] .k-Autor,html[data-theme=d
 .btn.ghost{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
 .btn.good{background:var(--good);color:#fff}
 .btn.bad{background:var(--card);color:var(--bad);border:1.5px solid var(--bad)}
+.xppill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:14px;font-weight:800;color:var(--brand)}
+.markfb{display:none;margin-top:14px;border-radius:12px;padding:11px 14px;font-size:15px;font-weight:800;text-align:center}
+.markfb.show{display:block;animation:fade .2s ease}
+.markfb.ok{background:#e7f0e9;color:#2f6b45}
+.markfb.no{background:#f6e5e2;color:#b04b3c}
+html[data-theme=dark] .markfb.ok{background:#26362b;color:#8fd6a6}
+html[data-theme=dark] .markfb.no{background:#3a2725;color:#e79b8f}
 .result{text-align:center;padding:30px 10px}
 .ring{width:120px;height:120px;border-radius:50%;margin:10px auto;display:grid;place-items:center}
 .pill{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;margin:4px;font-size:13px;font-weight:700}
@@ -74,6 +81,7 @@ a.src{color:var(--soft);font-size:12px}
     <div class="logo serif">📚</div>
     <b class="serif">Weltliteratur</b>
     <span class="sp"></span>
+    <span id="xpPill" class="xppill">⭐ 0</span>
     <button class="iconbtn" id="themeBtn" title="Theme">🌗</button>
   </header>
 
@@ -119,6 +127,11 @@ BOOKS.forEach((b,i)=>b._i=i);
 const $=id=>document.getElementById(id);
 function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+var POINTS=10;
+var store;try{store=JSON.parse(localStorage.getItem("lit_store"))||{};}catch(e){store={};}
+store.xp=store.xp||0;store.right=store.right||0;store.wrong=store.wrong||0;
+function saveStore(){try{localStorage.setItem("lit_store",JSON.stringify(store));}catch(e){}}
+function refreshXP(){var p=document.getElementById("xpPill");if(p)p.textContent="⭐ "+store.xp;}
 
 /* theme */
 var theme=localStorage.getItem('lit_theme')||'light';
@@ -171,7 +184,7 @@ function startSession(bookIdxs,label){
     queue.push({kind:'intro',bi:p.bi});
     p.cards.forEach(function(c){queue.push({kind:'card',bi:p.bi,card:c});});
   });
-  S={queue:queue,pos:0,known:0,seen:0,label:label};
+  S={queue:queue,pos:0,right:0,wrong:0,seen:0,points:0,label:label};
   $('homeView').classList.add('hidden');$('resultView').classList.add('hidden');$('quizView').classList.remove('hidden');
   render();
 }
@@ -197,34 +210,44 @@ function render(){
   var c=it.card;
   card.innerHTML='<span class="kick k-'+c.r+'">'+c.r+' · '+b.title+'</span><div class="qtext serif">'+c.q+'</div>';
   var ans=el('div','ans');ans.id='ansBox';
-  slot.appendChild(card);card.appendChild(ans);
+  var mfb=el('div','markfb');mfb.id='markFb';
+  slot.appendChild(card);card.appendChild(ans);card.appendChild(mfb);
   setFoot([{label:'Antwort zeigen',fn:reveal}]);
   window.scrollTo(0,0);
 }
 function reveal(){
   var it=S.queue[S.pos];var c=it.card;
   var ans=$('ansBox');ans.innerHTML=c.a;ans.classList.add('show');
-  S.seen++;
-  var last=(S.pos+1>=S.queue.length);
   setFoot([
-    {label:'✗ Nochmal',cls:'bad',fn:function(){next();}},
-    {label:'✓ Gewusst',cls:'good',fn:function(){S.known++;next();}}
+    {label:'✗ Nicht gewusst',cls:'bad',fn:function(){mark(false);}},
+    {label:'✓ Gewusst',cls:'good',fn:function(){mark(true);}}
   ]);
   try{ans.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}
+}
+function mark(correct){
+  S.seen++;
+  if(correct){S.right++;S.points+=POINTS;store.xp+=POINTS;store.right++;}
+  else{S.wrong++;store.wrong++;}
+  saveStore();refreshXP();
+  var fb=$('markFb');
+  if(fb){fb.className='markfb show '+(correct?'ok':'no');fb.textContent=correct?('✓ Richtig  ·  +'+POINTS+' Punkte'):'✗ Falsch';}
+  var last=(S.pos+1>=S.queue.length);
+  setFoot([{label:last?'Ergebnis ansehen':'Weiter ›',fn:next}]);
 }
 function finish(){
   $('pfill').style.width='100%';
   $('quizView').classList.add('hidden');$('resultView').classList.remove('hidden');
-  var pct=S.seen?Math.round(S.known/S.seen*100):0;
+  var pct=S.seen?Math.round(S.right/S.seen*100):0;
   var col=pct>=80?'var(--good)':(pct>=50?'var(--gold)':'var(--bad)');
   $('resRing').style.background='conic-gradient('+col+' '+pct+'%, var(--line) 0)';
   $('resRing').innerHTML='<div style="width:100px;height:100px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:26px;font-weight:800">'+pct+'%</div>';
-  $('resTitle').textContent=(pct>=80?'🏆 ':(pct>=50?'👍 ':'📚 '))+S.known+' von '+S.seen+' gewusst';
-  $('resPills').innerHTML='<span class="pill">'+S.label+'</span><span class="pill">'+S.queue.length+' Karten</span>';
+  $('resTitle').textContent=(pct>=80?'🏆 ':(pct>=50?'👍 ':'📚 '))+S.right+' von '+S.seen+' richtig';
+  $('resPills').innerHTML='<span class="pill">✓ '+S.right+' richtig</span><span class="pill">✗ '+S.wrong+' falsch</span><span class="pill">+'+S.points+' Punkte</span><span class="pill">⭐ '+store.xp+' gesamt</span>';
 }
 $('resHome').onclick=renderHome;
 $('resAgain').onclick=function(){ if(S){ var ids=[];S.queue.forEach(function(it){if(ids.indexOf(it.bi)<0)ids.push(it.bi);}); startSession(ids,S.label);} };
 
+refreshXP();
 renderHome();
 </script>
 </body>
