@@ -173,6 +173,7 @@ applyTheme();
 
 /* ---------- HOME ---------- */
 var curFilter='Alle';
+try{curFilter=localStorage.getItem('lit_epoche')||'Alle';}catch(e){}   // gewaehlte Epoche bleibt ueber das Neuladen erhalten
 function epochs(){var s=['Alle'];BOOKS.forEach(b=>{if(s.indexOf(b.epoch)<0)s.push(b.epoch);});return s;}
 function renderHome(){
   $('homeView').classList.remove('hidden');$('quizView').classList.add('hidden');$('resultView').classList.add('hidden');
@@ -190,8 +191,9 @@ function renderHome(){
   epochs().filter(function(ep){return ep!=='Alle';}).sort(function(a,b){return a.localeCompare(b,'de');}).forEach(function(ep){
     var o=el('option');o.value=ep;o.textContent=ep;sel.appendChild(o);
   });
+  if(epochs().indexOf(curFilter)<0)curFilter='Alle';
   sel.value=curFilter;
-  sel.onchange=function(){curFilter=sel.value;renderHome();};
+  sel.onchange=function(){curFilter=sel.value;try{localStorage.setItem('lit_epoche',curFilter);}catch(e){}renderHome();};
   wahl.appendChild(sel);fs.appendChild(wahl);
   // list
   var list=$('bookList');list.innerHTML='';
